@@ -2,7 +2,8 @@
   "main.html": {
     "refer": [
       "setting.html"
-    ]
+    ],
+    "resources": []
   },
   "login.html": {
     "resources": [
@@ -13,12 +14,14 @@
       "css/style.css",
       "images/weixin.png",
       "images/qq.png",
-      "js/mui.enterfocus.js"
+      "js/mui.enterfocus.js",
+      "fonts/mui.ttf"
     ],
     "refer": [
       "main.html",
       "reg.html",
-      "forget_password.html"
+      "forget_password.html",
+      "business/tab-webview-main.html"
     ]
   },
   "setting.html": {
@@ -34,11 +37,25 @@
       "libs/easymob-webim-sdk/strophe-custom-2.0.0.js",
       "js/mui.view.js",
       "images/iconfont-tianjia.png"
-    ]
+    ],
+    "refer": []
   },
   "reg.html": {
     "refer": [
       "login.html"
+    ],
+    "resources": []
+  },
+  "business/tab-webview-main.html": {
+    "resources": [
+      "fonts/mui.ttf",
+      "business/tab-webview-subpage-about.html"
+    ],
+    "refer": [
+      "business/tab-webview-subpage-chat.html",
+      "business/tab-webview-subpage-contact.html",
+      "business/tab-webview-subpage-setting.html",
+      "business/tab-webview-subpage-about.html"
     ]
   }
 }
