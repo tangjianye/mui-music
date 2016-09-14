@@ -290,6 +290,14 @@
 					"business/tab-webview-subpage-setting.html"
 				],
 				"priority": 0
+			},
+			"business/tab-webview-subpage-about.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
 			}
 		},
 		"idle": {
