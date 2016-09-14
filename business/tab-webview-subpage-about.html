@@ -82,12 +82,7 @@
 				var respnoseEl = document.getElementById("response");
 				//成功响应的回调函数
 				var success = function(response) {
-					var dataType = dataTypeEl.value;
-					if(dataType === 'json') {
 						response = JSON.stringify(response);
-					} else if(dataType === 'xml') {
-						response = new XMLSerializer().serializeToString(response).replace(/</g, "&lt;").replace(/>/g, "&gt;");
-					}
 					respnoseEl.innerHTML = response;
 				};
 				//设置全局beforeSend
@@ -102,10 +97,11 @@
 				var ajax = function() {
 					//利用RunJS的Echo Ajax功能测试
 					var url = 'https://api.douban.com/v2/music/search';
-					//请求方式，默认为Get；
-					var type = methodEl.value;
-					//预期服务器范围的数据类型
-					var dataType = dataTypeEl.value;
+					//					//请求方式，默认为Get；
+					//					var type = 'get';
+					//					//预期服务器范围的数据类型
+					//					var dataType = 'json';
+					// console.log('ajax:::' + 'type=' + type + 'dataType=' + dataType);
 					//发送数据
 					var data = {
 						tag: "周杰伦",
@@ -113,15 +109,7 @@
 						count: "1"
 					};
 					respnoseEl.innerHTML = '正在请求中...';
-					if(type === 'get') {
-						if(dataType === 'json') {
-							$.getJSON(url, data, success);
-						} else {
-							$.get(url, data, success, dataType);
-						}
-					} else if(type === 'post') {
-						$.post(url, data, success, dataType);
-					}
+					$.getJSON(url, data, success);
 				};
 				//发送请求按钮的点击事件
 				document.getElementById("confirm").addEventListener('tap', function() {
