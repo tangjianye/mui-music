@@ -44,8 +44,8 @@
 							<option value="get">GET</option>
 							<option value="post">POST</option>
 						</select>
-					</div>-->
-					<!--					<div class="mui-input-row">
+					</div>
+					<div class="mui-input-row">
 						<label>dataType:</label>
 						<select id="dataType">
 							<option value="html">HTML</option>
@@ -77,6 +77,7 @@
 					});
 				}
 
+				var respnoseEl = document.getElementById("response");
 				//成功响应的回调函数
 				var success = function(response) {
 					response = JSON.stringify(response);
@@ -96,15 +97,16 @@
 					var url = 'https://api.douban.com/v2/music/search';
 					//发送数据
 					var data = {
-						tag: "周杰伦",
-						start: "0",
-						count: "1"
+						tag: '周杰伦',
+						start: '0',
+						count: '1'
 					};
 					respnoseEl.innerHTML = '正在请求中...';
 					$.getJSON(url, data, success);
 				};
 				//发送请求按钮的点击事件
 				document.getElementById("confirm").addEventListener('tap', function() {
+					console.log('点击事件');
 					if(network) {
 						ajax();
 					} else {
