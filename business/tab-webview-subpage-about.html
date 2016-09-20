@@ -43,6 +43,8 @@
 					swipeBack: true //启用右滑关闭功能
 				});
 
+				var reqStart = 0;
+				var reqCount = 2;
 				var network = true;
 				if(mui.os.plus) {
 					mui.plusReady(function() {
@@ -56,7 +58,8 @@
 				var success = function(response) {
 					response = JSON.stringify(response);
 					var obj = JSON.parse(response);
-					console.log('success:::' + obj.musics[0].alt_title);
+					//					console.log('success:::' + obj.musics[0].alt_title);
+					console.log('success:::' + obj.musics.length);
 				};
 				//设置全局beforeSend
 				$.ajaxSettings.beforeSend = function(xhr, setting) {
@@ -67,7 +70,7 @@
 				$.ajaxSettings.complete = function(xhr, status) {
 					console.log('complete:::' + status);
 				}
-				
+
 				var ajax = function() {
 					//利用RunJS的Echo Ajax功能测试
 					//https://api.douban.com/v2/music/search?tag=%E5%91%A8%E6%9D%B0%E4%BC%A6&start=0&count=1
@@ -75,13 +78,13 @@
 					//发送数据
 					var data = {
 						tag: '周杰伦',
-						start: '0',
-						count: '1'
+						start: reqStart,
+						count: reqCount
 					};
 					//respnoseEl.innerHTML = '正在请求中...';
 					$.getJSON(url, data, success);
 				};
-				
+
 				var request = function() {
 					console.log('request');
 					if(network) {
@@ -90,7 +93,7 @@
 						mui.toast("当前网络不给力，请稍后再试");
 					}
 				};
-				
+
 				// 自动获取歌曲列表
 				request();
 			})(mui);
