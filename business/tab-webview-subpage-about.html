@@ -52,7 +52,7 @@
 				});
 
 				var reqStart = 0;
-				var reqCount = 2;
+				var reqCount = 3;
 				var network = true;
 				if(mui.os.plus) {
 					mui.plusReady(function() {
@@ -68,6 +68,18 @@
 					var obj = JSON.parse(response);
 					//					console.log('success:::' + obj.musics[0].alt_title);
 					console.log('success:::' + obj.musics.length);
+					reqStart += reqCount;
+
+					var table = document.body.querySelector('.mui-table-view');
+					var cells = document.body.querySelectorAll('.mui-table-view-cell');
+					for(var i = cells.length, len = i + obj.musics.length; i < len; i++) {
+						var li = document.createElement('li');
+						li.className = 'mui-table-view-cell';
+						li.innerHTML = '<a class="mui-navigate-right">' + obj.musics[i - cells.length].title + '</a>';
+						//下拉刷新，新纪录插到最前面；
+						table.insertBefore(li, table.firstChild);
+					}
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
 				};
 				//设置全局beforeSend
 				$.ajaxSettings.beforeSend = function(xhr, setting) {
@@ -103,24 +115,25 @@
 				};
 
 				// 自动获取歌曲列表
-				request();
+				//				request();
 
 				/**
 				 * 下拉刷新具体业务实现
 				 */
 				function pulldownRefresh() {
-					setTimeout(function() {
-						var table = document.body.querySelector('.mui-table-view');
-						var cells = document.body.querySelectorAll('.mui-table-view-cell');
-						for(var i = cells.length, len = i + 3; i < len; i++) {
-							var li = document.createElement('li');
-							li.className = 'mui-table-view-cell';
-							li.innerHTML = '<a class="mui-navigate-right">Item ' + (i + 1) + '</a>';
-							//下拉刷新，新纪录插到最前面；
-							table.insertBefore(li, table.firstChild);
-						}
-						mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
-					}, 1000);
+					//					setTimeout(function() {
+					//						var table = document.body.querySelector('.mui-table-view');
+					//						var cells = document.body.querySelectorAll('.mui-table-view-cell');
+					//						for(var i = cells.length, len = i + 3; i < len; i++) {
+					//							var li = document.createElement('li');
+					//							li.className = 'mui-table-view-cell';
+					//							li.innerHTML = '<a class="mui-navigate-right">Item ' + (i + 1) + '</a>';
+					//							//下拉刷新，新纪录插到最前面；
+					//							table.insertBefore(li, table.firstChild);
+					//						}
+					//						mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
+					//					}, 1000);
+					request();
 				}
 				var count = 0;
 				/**
