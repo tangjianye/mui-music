@@ -294,7 +294,8 @@
 			"business/tab-webview-subpage-about.html": {
 				"resources": [
 					"js/mui.min.js",
-					"css/mui.min.css"
+					"css/mui.min.css",
+					"fonts/mui.ttf"
 				],
 				"refer": [],
 				"priority": 0

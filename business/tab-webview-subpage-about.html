@@ -63,10 +63,9 @@
 				}
 
 				//成功响应的回调函数
-				var success = function(response) {
+				var pulldownSuccess = function(response) {
 					response = JSON.stringify(response);
 					var obj = JSON.parse(response);
-					//					console.log('success:::' + obj.musics[0].alt_title);
 					console.log('success:::' + obj.musics.length);
 					reqStart += reqCount;
 
@@ -81,6 +80,24 @@
 					}
 					mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
 				};
+				var pullupSuccess = function(response) {
+					response = JSON.stringify(response);
+					var obj = JSON.parse(response);
+					console.log('success:::' + ' length=' + obj.musics.length + ' ;total=' + obj.total);
+					reqStart += reqCount;
+
+					var isEnd = (reqStart >= obj.total);
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh(isEnd); //参数为true代表没有更多数据了。
+					var table = document.body.querySelector('.mui-table-view');
+					var cells = document.body.querySelectorAll('.mui-table-view-cell');
+					for(var i = cells.length, len = i + obj.musics.length; i < len; i++) {
+						var li = document.createElement('li');
+						li.className = 'mui-table-view-cell';
+						li.innerHTML = '<a class="mui-navigate-right">' + obj.musics[i - cells.length].title + '</a>';
+						table.appendChild(li);
+					}
+				};
+
 				//设置全局beforeSend
 				$.ajaxSettings.beforeSend = function(xhr, setting) {
 					//beforeSend演示,也可在$.ajax({beforeSend:function(){}})中设置单个Ajax的beforeSend
@@ -89,9 +106,11 @@
 				//设置全局complete
 				$.ajaxSettings.complete = function(xhr, status) {
 					console.log('complete:::' + status);
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh();
 				}
 
-				var ajax = function() {
+				var pulldownAjax = function() {
 					//利用RunJS的Echo Ajax功能测试
 					//https://api.douban.com/v2/music/search?tag=%E5%91%A8%E6%9D%B0%E4%BC%A6&start=0&count=1
 					var url = 'https://api.douban.com/v2/music/search';
@@ -101,56 +120,48 @@
 						start: reqStart,
 						count: reqCount
 					};
-					//respnoseEl.innerHTML = '正在请求中...';
-					$.getJSON(url, data, success);
+					console.log('pulldownAjax');
+					$.getJSON(url, data, pulldownSuccess);
 				};
 
-				var request = function() {
-					console.log('request');
-					if(network) {
-						ajax();
-					} else {
-						mui.toast("当前网络不给力，请稍后再试");
-					}
+				var pullupAjax = function() {
+					//利用RunJS的Echo Ajax功能测试
+					//https://api.douban.com/v2/music/search?tag=%E5%91%A8%E6%9D%B0%E4%BC%A6&start=0&count=1
+					var url = 'https://api.douban.com/v2/music/search';
+					//发送数据
+					var data = {
+						tag: '周杰伦',
+						start: reqStart,
+						count: reqCount
+					};
+					console.log('pullupAjax');
+					$.getJSON(url, data, pullupSuccess);
 				};
-
-				// 自动获取歌曲列表
-				//				request();
 
 				/**
 				 * 下拉刷新具体业务实现
 				 */
 				function pulldownRefresh() {
-					//					setTimeout(function() {
-					//						var table = document.body.querySelector('.mui-table-view');
-					//						var cells = document.body.querySelectorAll('.mui-table-view-cell');
-					//						for(var i = cells.length, len = i + 3; i < len; i++) {
-					//							var li = document.createElement('li');
-					//							li.className = 'mui-table-view-cell';
-					//							li.innerHTML = '<a class="mui-navigate-right">Item ' + (i + 1) + '</a>';
-					//							//下拉刷新，新纪录插到最前面；
-					//							table.insertBefore(li, table.firstChild);
-					//						}
-					//						mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
-					//					}, 1000);
-					request();
+					console.log('pulldownRefresh');
+					//					reqStart = 0;
+					//					reqCount = 3;
+					if(network) {
+						pulldownAjax();
+					} else {
+						mui.toast("当前网络不给力，请稍后再试");
+					}
 				}
-				var count = 0;
+
 				/**
 				 * 上拉加载具体业务实现
 				 */
 				function pullupRefresh() {
-					setTimeout(function() {
-						mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > 2)); //参数为true代表没有更多数据了。
-						var table = document.body.querySelector('.mui-table-view');
-						var cells = document.body.querySelectorAll('.mui-table-view-cell');
-						for(var i = cells.length, len = i + 5; i < len; i++) {
-							var li = document.createElement('li');
-							li.className = 'mui-table-view-cell';
-							li.innerHTML = '<a class="mui-navigate-right">Item ' + (i + 1) + '</a>';
-							table.appendChild(li);
-						}
-					}, 1000);
+					console.log('pullupRefresh');
+					if(network) {
+						pullupAjax();
+					} else {
+						mui.toast("当前网络不给力，请稍后再试");
+					}
 				}
 			})(mui);
 		</script>
