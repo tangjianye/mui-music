@@ -71,6 +71,7 @@
 
 					var table = document.body.querySelector('.mui-table-view');
 					var cells = document.body.querySelectorAll('.mui-table-view-cell');
+					//table.clear();
 					for(var i = cells.length, len = i + obj.musics.length; i < len; i++) {
 						var li = document.createElement('li');
 						li.className = 'mui-table-view-cell';
@@ -143,8 +144,8 @@
 				 */
 				function pulldownRefresh() {
 					console.log('pulldownRefresh');
-					//					reqStart = 0;
-					//					reqCount = 3;
+					//reqStart = 0;
+					//reqCount = 3;
 					if(network) {
 						pulldownAjax();
 					} else {
