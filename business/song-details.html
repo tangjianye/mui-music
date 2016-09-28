@@ -12,9 +12,9 @@
 		<header class="mui-bar mui-bar-nav">
 			<h1 class="mui-title">歌曲详情</h1>
 		</header>
-		<div class="mui-content">
+		<!--<div class="mui-content">
 			<p id="details">歌曲名字</p>
-		</div>
+		</div>-->
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript">
 			mui.init()
@@ -35,11 +35,12 @@
 					var mobile_link = self.mobile_link;
 					console.log('mobile_link:' + mobile_link)
 
-					var detail = document.getElementById('details');
-					detail.innerHTML = mobile_link;
+//					var detail = document.getElementById('details');
+//					detail.innerHTML = mobile_link;
 					
 					//显示当前页面
-					mui.currentWebview.show();
+					// mui.currentWebview.show();
+					plus.webview.currentWebview().loadURL(mobile_link);
 				});
 			}
 		</script>
