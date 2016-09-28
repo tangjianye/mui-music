@@ -78,6 +78,22 @@
 						li.innerHTML = '<a class="mui-navigate-right">' + obj.musics[i - cells.length].title + '</a>';
 						//下拉刷新，新纪录插到最前面；
 						table.insertBefore(li, table.firstChild);
+
+						var web_link = obj.musics[i - cells.length].mobile_link;
+						console.log('web_link:::' + web_link);
+
+						//tap为mui封装的单击事件，可参考手势事件章节
+						li.addEventListener('tap', function() {
+							//打开关于页面
+							mui.openWindow({
+								url: 'song-details.html',
+								id: 'song-details',
+								extras: {
+									id: 'test',
+									mobile_link: web_link
+								}
+							});
+						});
 					}
 					mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
 				};

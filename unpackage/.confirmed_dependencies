@@ -65,9 +65,18 @@
 			"js/mui.min.js",
 			"css/mui.min.css",
 			"fonts/mui.ttf"
+		],
+		"refer": [
+			"business/song-details.html"
 		]
 	},
 	"business/tab-webview-subpage-chat.html": {
+		"resources": [
+			"js/mui.min.js",
+			"css/mui.min.css"
+		]
+	},
+	"business/song-details.html": {
 		"resources": [
 			"js/mui.min.js",
 			"css/mui.min.css"

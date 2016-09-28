@@ -297,10 +297,20 @@
 					"css/mui.min.css",
 					"fonts/mui.ttf"
 				],
-				"refer": [],
+				"refer": [
+					"business/song-details.html"
+				],
 				"priority": 0
 			},
 			"business/tab-webview-subpage-chat.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"business/song-details.html": {
 				"resources": [
 					"js/mui.min.js",
 					"css/mui.min.css"
